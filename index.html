@@ -3,58 +3,534 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
+    <title>Immutable Ratings Documentation</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        :root {
+            --primary-color: #6366f1;
+            --sidebar-width: 280px;
+            --header-height: 60px;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --sidebar-background: #f8fafc;
+            --hover-color: #eff6ff;
+            --active-color: #dbeafe;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
-        .container {
-            max-width: 800px;
-            padding: 60px 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
-        }
-        p {
-            font-size: 1.5rem;
+
+        body {
+            color: var(--text-color);
             line-height: 1.6;
-            margin-bottom: 1rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.5rem;
+
+        /* Header styles */
+        header {
+            height: var(--header-height);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            margin-right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            margin-top: var(--header-height);
+            flex: 1;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-background);
+            border-right: 1px solid var(--border-color);
+            height: calc(100vh - var(--header-height));
+            position: fixed;
+            overflow-y: auto;
+            padding: 20px 0;
+            top: var(--header-height);
+        }
+
+        .sidebar nav {
+            padding: 0 15px;
+        }
+
+        .nav-section {
+            margin-bottom: 20px;
+        }
+
+        .nav-section h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 8px;
+            padding: 0 10px;
+        }
+
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-item a {
+            display: block;
+            padding: 8px 10px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            font-size: 0.95rem;
+        }
+
+        .nav-item a:hover {
+            background: var(--hover-color);
+        }
+
+        .nav-item a.active {
+            background: var(--active-color);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Content styles */
+        .content {
+            margin-left: var(--sidebar-width);
+            padding: 30px 40px;
+            flex: 1;
+            max-width: 100%;
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .screenshot {
+            max-width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--sidebar-background);
+            font-weight: 500;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
             }
-            p {
-                font-size: 1.2rem;
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 99;
             }
-            .container {
-                padding: 40px 20px;
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 20px;
+                width: 100%;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 98;
+            }
+
+            .overlay.active {
+                display: block;
             }
         }
     </style>
 </head>
 <body>
+    <header>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <div class="logo">Immutable Ratings Docs</div>
+    </header>
+
     <div class="container">
-        <h1>Coming Soon</h1>
-        <p>We're working hard to bring you something amazing. Stay tuned!</p>
+        <div class="overlay" id="overlay"></div>
+        <aside class="sidebar" id="sidebar">
+            <nav>
+                <div class="nav-section">
+                    <h3>Introduction</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#about" class="active">About</a></li>
+                        <li class="nav-item"><a href="#vision">Vision</a></li>
+                        <li class="nav-item"><a href="#value-proposition">Value Proposition</a></li>
+                        <li class="nav-item"><a href="#target-audience">Target Audience</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>How It Works</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#url-hashing">URL Hashing</a></li>
+                        <li class="nav-item"><a href="#rating-tokens">Rating Tokens</a></li>
+                        <li class="nav-item"><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>Usage Guide</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#supported-platforms">Supported Platforms</a></li>
+                        <li class="nav-item"><a href="#create-rating-card">Creating a Rating Card</a></li>
+                        <li class="nav-item"><a href="#submit-rating">Submitting a Rating</a></li>
+                        <li class="nav-item"><a href="#rating-boards">Rating Boards</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#smart-contracts">Smart Contracts</a></li>
+                        <li class="nav-item"><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div class="content-container">
+                <h1 id="about">About Immutable Ratings</h1>
+                <p>Ratings and reviews have been a valuable tool for gauging quality: whether it's a product, service or experience. And Immutable Ratings adds the online dimension: anything contained within a URL can be rated. Whether it's a public figure, an opinion in form of a post or blog, the final score of a football match, or a historical event. Anything that can be contained in a webpage.</p>
+
+                <p>Ratings and reviews are a shortcut, a way for people to cut through the noise and make decisions without drowning in options, in a world with endless products, services, experiences, and URLs. No one has time to research everything from scratch. And Ratings are a way for consumers of anything to express their opinion: you might love the latest iPhone, or you might dislike the latest Oscar-winning movie. And you want others to know.</p>
+
+                <h2>Why Immutable Ratings?</h2>
+                <p>Ratings and reviews have historically suffered from several flaws, especially in online environments:</p>
+
+                <h3>1. Manipulation</h3>
+                <ul>
+                    <li><strong>Fake Reviews:</strong> Surely you've heard stories of fake positive (or negative) reviews. Fake reviews are a plague: bots, paid reviewers, or competitors tanking each other with bogus one-stars. There's an industry behind it. Online, this scales up fast.</li>
+                    <li><strong>Review Bombing:</strong> Oftentimes, groups of people organize mass negative reviews for reasons unrelated to the product/service, such as political disputes or personal grievances.</li>
+                    <li><strong>Incentivized Reviews:</strong> Sellers flood platforms with incentivized reviews ("free product for your honest opinion!") or bury bad feedback under a wave of fresh positives.</li>
+                </ul>
+
+                <h3>2. Biases</h3>
+                <ul>
+                    <li><strong>Self-selection Bias:</strong> People are more likely to leave a review if they have an extreme experience (either very positive or very negative), leading to a skewed representation of overall sentiment. A single bad experience can spiral into a one-star review that drowns out dozens of satisfied customers who never bothered to log in and rate.</li>
+                    <li><strong>Recency Bias:</strong> Newer reviews often get more visibility, potentially overshadowing a long history of good (or bad) reviews.</li>
+                    <li><strong>Algorithmic Bias:</strong> Many platforms use algorithms to surface or prioritize certain reviews, potentially distorting the organic representation of user sentiment.</li>
+                </ul>
+
+                <h3>3. Trust Issues & Authenticity</h3>
+                <p>Most platforms struggle to verify if a reviewer has actually used the product or service, making it hard to distinguish real experiences from bots, paid reviews, or incentivized opinions.</p>
+
+                <h3>4. Star Rating Inflation</h3>
+                <p>On many platforms, anything below a 4-star rating is perceived as bad, meaning the system lacks meaningful differentiation.</p>
+
+                <p>Gaming the system has gone high-tech. Historically, manipulation was clumsier: maybe a bribe or a favor, but the digital scale makes it both easier and harder to spot. The flaw boils down to this: ratings promise objectivity but deliver a stew of human quirks, amplified by tech. They're useful, sure, but they've never been gospel. And online just makes the cracks louder.</p>
+
+                <p>Immutable Ratings aims to address many of these flaws by leveraging blockchain technology and its core pillars:</p>
+
+                <ul>
+                    <li><strong>Transparency & Immutability:</strong> All ratings are recorded on a public ledger, visible to everyone. Once a rating is recorded, it cannot be altered or deleted, ensuring trust and preventing manipulation.</li>
+                    <li><strong>Verifiability via Cryptography:</strong> Ratings are digital signatures (private/public key cryptography) secured by the Keccak-256 hashing algorithm.</li>
+                    <li><strong>Credible Neutrality via Decentralization:</strong> Blockchain operates on a distributed network of nodes where no single entity controls the system, reducing censorship and single points of failure.</li>
+                </ul>
+
+                <h2 id="vision">Vision</h2>
+                <p>To establish Immutable Rating as a universally recognized standard for expressing public sentiment online by integrating our decentralized Thumbs Up/Down buttons across all web services—creating an immutable, transparent, and ubiquitous rating system that empowers users worldwide to voice their opinions, just as seamlessly as clicking a Facebook "Like."</p>
+
+                <h2 id="value-proposition">Value Proposition</h2>
+                <ul>
+                    <li><strong>Immutable Ratings:</strong> Once a rating is given, it cannot be altered or removed, ensuring a permanent record of public opinion.</li>
+                    <li><strong>Gamification:</strong> Leaderboards and achievement NFTs incentivize user engagement by recognizing top-rated profiles over various time frames.</li>
+                </ul>
+
+                <h2 id="target-audience">Target Audience</h2>
+                <p>The primary audience for Immutable Rating comprises Web3 enthusiasts and onchain communities and users interested in decentralized platforms that offer novel ways to interact and express opinions online.</p>
+
+                <h1 id="url-hashing">How It Works</h1>
+                <h2 id="url-hashing">URL Hashing</h2>
+                <p>When a user submits a URL for rating, the system hashes that URL to create a unique identifier on the blockchain. This process ensures that each URL has a distinct and permanent record.</p>
+
+                <h2 id="rating-tokens">Rating Tokens</h2>
+                <p>When a user submits a Rating, ERC20 tokens are minted to the URL-wallet generated during URL Hashing:</p>
+
+                <ul>
+                    <li>👍 Thumbs Up tokens, represented by $TUP</li>
+                    <li>👎 Thumbs Down tokens, represented by $TDN</li>
+                </ul>
+
+                <p>These tokens will sit on the URL-wallets forever, determining its Immutable Rating.</p>
+
+                <h2 id="pricing">Pricing</h2>
+                <p>Submitting Ratings has a cost (IR fee) which has a two-fold purpose:</p>
+
+                <ul>
+                    <li><strong>Preventing Spam Ratings:</strong> Without the IR fee, bad actors could flood the platform with Ratings, just by paying the Gwei required to execute the transaction, which currently is close to $0.</li>
+                    <li><strong>Cover Development, Third Party services and Marketing costs:</strong> Immutable Ratings is a self-bootstrapped application and we'll aim to cover costs with IR fees collected from users submitting ratings.</li>
+                </ul>
+
+                <h3>Pricing Estimates</h3>
+                <p>At the time of deployment ETH is around $2000 USD and we have set a minimum of Ratings that can be submitted to 1000 Ratings (either 👍 or 👎).</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ratings</th>
+                            <th>ETH</th>
+                            <th>USD ($2,000/ETH)</th>
+                            <th>USD ($5,000/ETH)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1,000</td>
+                            <td>0.00007</td>
+                            <td>$0.14</td>
+                            <td>$0.35</td>
+                        </tr>
+                        <tr>
+                            <td>10,000</td>
+                            <td>0.0007</td>
+                            <td>$1.40</td>
+                            <td>$3.50</td>
+                        </tr>
+                        <tr>
+                            <td>100,000</td>
+                            <td>0.007</td>
+                            <td>$14.00</td>
+                            <td>$35.00</td>
+                        </tr>
+                        <tr>
+                            <td>1,000,000</td>
+                            <td>0.07</td>
+                            <td>$140.00</td>
+                            <td>$350.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>We believe that the current minimum IR Fee set allows everyone to transact in the application but, at a later stage, we'll consider feedback from the community in terms of introducing Fee changes and/or a Dynamic Fee.</p>
+
+                <h2 id="supported-platforms">Websites / Platforms Supported</h2>
+                <p>Initially, and to avoid users from submitting URLs that might require moderation, we decided to provide support to three platforms:</p>
+
+                <ul>
+                    <li>X</li>
+                    <li>Warpcast (Farcaster Client)</li>
+                    <li>Wikipedia</li>
+                </ul>
+
+                <p>Users can filter URLs from supported platforms by interacting with the icons above the TRENDING Section:</p>
+
+                <img src="/api/placeholder/700/200" alt="Platform filter icons" class="screenshot" />
+
+                <p>We do have the following platforms in the pipeline:</p>
+
+                <ul>
+                    <li>Bluesky</li>
+                    <li>LinkedIn</li>
+                    <li>Facebook</li>
+                    <li>Amazon</li>
+                </ul>
+
+                <p>We are open to suggestions and encourage community feedback to provide additional support (or remove) platforms.</p>
+
+                <h2 id="create-rating-card">Creating a Rating Card</h2>
+                <p>Users looking to Rate a URL that does not yet exist can simply link an URL and click on Create New Market:</p>
+
+                <img src="/api/placeholder/700/220" alt="Creating a new rating card" class="screenshot" />
+
+                <p>Next, simply by Up or Down Rating the URL, the market will be created once the transaction is processed:</p>
+
+                <img src="/api/placeholder/700/350" alt="Rating a new URL" class="screenshot" />
+
+                <p>Last, the Rating Card will be displayed within the NEWLY ADDED Section (and other sections if it qualifies to do so):</p>
+
+                <img src="/api/placeholder/700/120" alt="Newly added rating card" class="screenshot" />
+
+                <h2 id="submit-rating">Submitting a Rating</h2>
+                <h3>2-clicks process</h3>
+                <p>By clicking in any of the cards Thumbs Up or Down buttons, a pop-up will come up with a pre-filled 1000 Ratings. Users can change the Ratings amount and by clicking on the Submit button the transaction will be prompted in the user wallet for confirmation.</p>
+
+                <img src="/api/placeholder/700/400" alt="Rating submission process" class="screenshot" />
+
+                <p>Updated Ratings for the URL will be updated accordingly upon transaction confirmation.</p>
+
+                <h2 id="rating-boards">Rating Boards</h2>
+                <p>When you land on Immutable Ratings, you will be presented with 4 Rating Boards:</p>
+
+                <ul>
+                    <li><strong>Trending:</strong> Displays Trending URLs rated over the last 7 days calculated by a formula that takes into account recent activity and engagement.</li>
+                    <li><strong>Highest Rated:</strong> Displays the Highest Overall URLs rated (difference between Total Thumbs Up and Thumbs Down), sorted in descending order.</li>
+                    <li><strong>Lowest Rated:</strong> Displays the Lowest Overall URLs rated (difference between Total Thumbs Down and Thumbs Up), sorted in descending order.</li>
+                    <li><strong>Newly Added:</strong> Displays rate cards newly created, sorted by the Newest.</li>
+                </ul>
+
+                <h1 id="resources">Resources</h1>
+                <h2 id="smart-contracts">Smart Contracts</h2>
+                <p>The smart contract documentation will be added here soon.</p>
+
+                <h2 id="faq">FAQ</h2>
+                <p>Frequently asked questions will be added here soon.</p>
+            </div>
+        </main>
     </div>
+
+    <script>
+        // Mobile menu toggle functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+        
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Navigation active state
+        const navLinks = document.querySelectorAll('.nav-item a');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // On mobile, close the sidebar after clicking a link
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Highlight active section on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('h1[id], h2[id]');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            if (currentSection) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
