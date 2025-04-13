@@ -264,6 +264,7 @@
                     <h3>Introduction</h3>
                     <ul>
                         <li class="nav-item"><a href="#about" class="active">About</a></li>
+                        <li class="nav-item"><a href="#why-immutable-ratings">Why Immutable Ratings</a></li>
                         <li class="nav-item"><a href="#vision">Vision</a></li>
                         <li class="nav-item"><a href="#value-proposition">Value Proposition</a></li>
                         <li class="nav-item"><a href="#target-audience">Target Audience</a></li>
@@ -275,12 +276,13 @@
                         <li class="nav-item"><a href="#url-hashing">URL Hashing</a></li>
                         <li class="nav-item"><a href="#rating-tokens">Rating Tokens</a></li>
                         <li class="nav-item"><a href="#pricing">Pricing</a></li>
+                        <li class="nav-item"><a href="#supported-platforms">Supported Platforms</a></li>
+                        <li class="nav-item"><a href="#search-bar">Search Bar</a></li>
                     </ul>
                 </div>
                 <div class="nav-section">
                     <h3>Usage Guide</h3>
                     <ul>
-                        <li class="nav-item"><a href="#supported-platforms">Supported Platforms</a></li>
                         <li class="nav-item"><a href="#create-rating-card">Creating a Rating Card</a></li>
                         <li class="nav-item"><a href="#submit-rating">Submitting a Rating</a></li>
                         <li class="nav-item"><a href="#rating-boards">Rating Boards</a></li>
@@ -290,7 +292,6 @@
                     <h3>Resources</h3>
                     <ul>
                         <li class="nav-item"><a href="#smart-contracts">Smart Contracts</a></li>
-                        <li class="nav-item"><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
             </nav>
@@ -299,180 +300,158 @@
         <main class="content">
             <div class="content-container">
                 <h1 id="about">About Immutable Ratings</h1>
-                <p>Ratings and reviews have been a valuable tool for gauging quality: whether it's a product, service or experience. And Immutable Ratings adds the online dimension: anything contained within a URL can be rated. Whether it's a public figure, an opinion in form of a post or blog, the final score of a football match, or a historical event. Anything that can be contained in a webpage.</p>
+                <p><b>Immutable Ratings</b> is a blockchain-based platform engineered to anchor public sentiment to the web in a way that's permanent, decentralized, and transparent.</p>
+                <p> Unlike traditional feedback systems that are vulnerable to deletion, moderation, or platform bias, <b>Immutable Ratings</b> enables users to leave lasting opinions tied directly to any supported URL. Whether it's a social profile, a post, a public figure, or a brand presence online, the rating becomes an indelible mark recorded onchain.</p>
+                <p>Through the use of ERC20 tokens assigned to unownable wallets derived from each URL, we introduce a social graph that cannot be altered or erased.</p>
 
-                <p>Ratings and reviews are a shortcut, a way for people to cut through the noise and make decisions without drowning in options, in a world with endless products, services, experiences, and URLs. No one has time to research everything from scratch. And Ratings are a way for consumers of anything to express their opinion: you might love the latest iPhone, or you might dislike the latest Oscar-winning movie. And you want others to know.</p>
+                <h2 id="why-immutable-ratings">Why Immutable Ratings</h2>
+                <p><b>Immutable Ratings</b> was born out of a desire to bring permanence, transparency, and decentralization to how public sentiment is recorded online.</p>
 
-                <h2>Why Immutable Ratings?</h2>
-                <p>Ratings and reviews have historically suffered from several flaws, especially in online environments:</p>
+                <p>In a digital landscape dominated by ephemeral likes, biased moderation, and centralized control, we see the opportunity to redefine how opinions are expressed and preserved. By tying sentiment directly to URLs via irreversible blockchain transactions, <b>Immutable Ratings</b> introduces a novel paradigm: one where sentiment is built on an immutable ledger rather than fleeting algorithms.</p>
 
-                <h3>1. Manipulation</h3>
-                <ul>
-                    <li><strong>Fake Reviews:</strong> Surely you've heard stories of fake positive (or negative) reviews. Fake reviews are a plague: bots, paid reviewers, or competitors tanking each other with bogus one-stars. There's an industry behind it. Online, this scales up fast.</li>
-                    <li><strong>Review Bombing:</strong> Oftentimes, groups of people organize mass negative reviews for reasons unrelated to the product/service, such as political disputes or personal grievances.</li>
-                    <li><strong>Incentivized Reviews:</strong> Sellers flood platforms with incentivized reviews ("free product for your honest opinion!") or bury bad feedback under a wave of fresh positives.</li>
-                </ul>
-
-                <h3>2. Biases</h3>
-                <ul>
-                    <li><strong>Self-selection Bias:</strong> People are more likely to leave a review if they have an extreme experience (either very positive or very negative), leading to a skewed representation of overall sentiment. A single bad experience can spiral into a one-star review that drowns out dozens of satisfied customers who never bothered to log in and rate.</li>
-                    <li><strong>Recency Bias:</strong> Newer reviews often get more visibility, potentially overshadowing a long history of good (or bad) reviews.</li>
-                    <li><strong>Algorithmic Bias:</strong> Many platforms use algorithms to surface or prioritize certain reviews, potentially distorting the organic representation of user sentiment.</li>
-                </ul>
-
-                <h3>3. Trust Issues & Authenticity</h3>
-                <p>Most platforms struggle to verify if a reviewer has actually used the product or service, making it hard to distinguish real experiences from bots, paid reviews, or incentivized opinions.</p>
-
-                <h3>4. Star Rating Inflation</h3>
-                <p>On many platforms, anything below a 4-star rating is perceived as bad, meaning the system lacks meaningful differentiation.</p>
-
-                <p>Gaming the system has gone high-tech. Historically, manipulation was clumsier: maybe a bribe or a favor, but the digital scale makes it both easier and harder to spot. The flaw boils down to this: ratings promise objectivity but deliver a stew of human quirks, amplified by tech. They're useful, sure, but they've never been gospel. And online just makes the cracks louder.</p>
-
-                <p>Immutable Ratings aims to address many of these flaws by leveraging blockchain technology and its core pillars:</p>
-
-                <ul>
-                    <li><strong>Transparency & Immutability:</strong> All ratings are recorded on a public ledger, visible to everyone. Once a rating is recorded, it cannot be altered or deleted, ensuring trust and preventing manipulation.</li>
-                    <li><strong>Verifiability via Cryptography:</strong> Ratings are digital signatures (private/public key cryptography) secured by the Keccak-256 hashing algorithm.</li>
-                    <li><strong>Credible Neutrality via Decentralization:</strong> Blockchain operates on a distributed network of nodes where no single entity controls the system, reducing censorship and single points of failure.</li>
-                </ul>
+                <p>This approach ensures that every Rating — whether a 👍 or 👎 — is a lasting, uneditable signal of public opinion, immune to censorship or manipulation. And it's not just a rating system; it's a new layer of trust on the internet.</p>
 
                 <h2 id="vision">Vision</h2>
-                <p>To establish Immutable Rating as a universally recognized standard for expressing public sentiment online by integrating our decentralized Thumbs Up/Down buttons across all web services—creating an immutable, transparent, and ubiquitous rating system that empowers users worldwide to voice their opinions, just as seamlessly as clicking a Facebook "Like."</p>
+                <p>To establish <b>Immutable Ratings</b> as the universal protocol for expressing public sentiment on the internet. We aim to integrate decentralized Thumbs Up/Down buttons across all web platforms, making it as effortless to leave a permanent opinion as clicking a Facebook "Like."</p>
 
                 <h2 id="value-proposition">Value Proposition</h2>
                 <ul>
-                    <li><strong>Immutable Ratings:</strong> Once a rating is given, it cannot be altered or removed, ensuring a permanent record of public opinion.</li>
-                    <li><strong>Gamification:</strong> Leaderboards and achievement NFTs incentivize user engagement by recognizing top-rated profiles over various time frames.</li>
+                    <li><strong>Immutable Ratings:</strong> Once a rating is given, it cannot be altered or removed, creating a permanent, verifiable record of public sentiment.</li>
+                    <li><strong>Transparent & Decentralized:</strong> Anyone can verify the sentiment attached to a URL, and no centralized authority can censor or manipulate the results.</li>
                 </ul>
 
                 <h2 id="target-audience">Target Audience</h2>
-                <p>The primary audience for Immutable Rating comprises Web3 enthusiasts and onchain communities and users interested in decentralized platforms that offer novel ways to interact and express opinions online.</p>
+                <p>Our primary users are Web3 communities, decentralized thinkers, and individuals seeking trustless, permanent tools for expressing and analysing sentiment online.</p>
 
-                <h1 id="url-hashing">How It Works</h1>
+                <h1 id="how-it-works">How It Works</h1>
                 <h2 id="url-hashing">URL Hashing</h2>
-                <p>When a user submits a URL for rating, the system hashes that URL to create a unique identifier on the blockchain. This process ensures that each URL has a distinct and permanent record.</p>
+                <p>Every URL eligible for rating is processed through a keccak-256 hash combined with our personal seed. This produces an Ethereum (EVM) wallet address, effectively binding the URL to a unique onchain identity.</p>
+
+                <p class="center"><strong>URL ≡ EVM Wallet</strong></p>
+
+                <p>Since the resulting wallet has no private key, it cannot be owned. <b>Any tokens sent to it are irrecoverable but permanently trackable</b>. This ensures the sentiment is immutable and free from ownership or interference.</p>
 
                 <h2 id="rating-tokens">Rating Tokens</h2>
-                <p>When a user submits a Rating, ERC20 tokens are minted to the URL-wallet generated during URL Hashing:</p>
+                <p>When a user submits a rating, ERC20 tokens are minted directly to the URL-wallet:</p>
 
                 <ul>
-                    <li>👍 Thumbs Up tokens, represented by $TUP</li>
+                    <li>👍 Thumbs Up tokens, represented by $TUP and</li>
                     <li>👎 Thumbs Down tokens, represented by $TDN</li>
                 </ul>
 
-                <p>These tokens will sit on the URL-wallets forever, determining its Immutable Rating.</p>
+                <p>These tokens remain in the URL-wallet indefinitely, determining its <b>Immutable Rating</b>.</p>
 
                 <h2 id="pricing">Pricing</h2>
-                <p>Submitting Ratings has a cost (IR fee) which has a two-fold purpose:</p>
+                <p>Submitting ratings incurs an Immutable Rating (IR) fee, which serves two purposes:</p>
 
                 <ul>
-                    <li><strong>Preventing Spam Ratings:</strong> Without the IR fee, bad actors could flood the platform with Ratings, just by paying the Gwei required to execute the transaction, which currently is close to $0.</li>
-                    <li><strong>Cover Development, Third Party services and Marketing costs:</strong> Immutable Ratings is a self-bootstrapped application and we'll aim to cover costs with IR fees collected from users submitting ratings.</li>
+                    <li><strong>Preventing Spam:</strong> Without the IR fee, malicious actors (aka bots) could flood the system with ratings for minimal gas costs.</li>
+                    <li><strong>Sustaining the Platform:</strong> As a self-bootstrapped initiative, we use IR fees to cover development, third-party services, and marketing efforts.</li>
                 </ul>
 
                 <h3>Pricing Estimates</h3>
-                <p>At the time of deployment ETH is around $2000 USD and we have set a minimum of Ratings that can be submitted to 1000 Ratings (either 👍 or 👎).</p>
+                <p>At the time of deployment (ETH ≈ $1,500 USD), the minimum purchase is 1,000 ratings (either $TUP or $TDN).</p>
 
                 <table>
                     <thead>
                         <tr>
-                            <th>Ratings</th>
+                            <th>TUP/TDN</th>
                             <th>ETH</th>
-                            <th>USD ($2,000/ETH)</th>
-                            <th>USD ($5,000/ETH)</th>
+                            <th>$1,500/ETH</th>
+                            <th>$5,000/ETH</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1,000</td>
                             <td>0.00007</td>
-                            <td>$0.14</td>
+                            <td>$0.11</td>
                             <td>$0.35</td>
                         </tr>
                         <tr>
                             <td>10,000</td>
                             <td>0.0007</td>
-                            <td>$1.40</td>
+                            <td>$1.05</td>
                             <td>$3.50</td>
                         </tr>
                         <tr>
                             <td>100,000</td>
                             <td>0.007</td>
-                            <td>$14.00</td>
+                            <td>$10.50</td>
                             <td>$35.00</td>
                         </tr>
                         <tr>
                             <td>1,000,000</td>
                             <td>0.07</td>
-                            <td>$140.00</td>
+                            <td>$105.00</td>
                             <td>$350.00</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <p>We believe that the current minimum IR Fee set allows everyone to transact in the application but, at a later stage, we'll consider feedback from the community in terms of introducing Fee changes and/or a Dynamic Fee.</p>
+                <p>The current minimum IR fee is designed to remain accessible while keeping bots at bay. In future versions, we will gather community feedback to consider fee adjustments or dynamic pricing.</p>
 
-                <h2 id="supported-platforms">Websites / Platforms Supported</h2>
-                <p>Initially, and to avoid users from submitting URLs that might require moderation, we decided to provide support to three platforms:</p>
+                <h2 id="supported-platforms">Supported Platforms</h2>
+                <p>To ensure quality and relevance, initial support is limited to the following platforms:</p>
 
                 <ul>
-                    <li>X</li>
-                    <li>Warpcast (Farcaster Client)</li>
+                    <li>X (formerly Twitter)</li>
+                    <li>Warpcast (Farcaster client)</li>
+                    <li>LinkedIn</li>
                     <li>Wikipedia</li>
                 </ul>
 
-                <p>Users can filter URLs from supported platforms by interacting with the icons above the TRENDING Section:</p>
+                <p>Users can filter ratings by platform using the icons above the TRENDING section.</p>
 
-                <img src="/api/placeholder/700/200" alt="Platform filter icons" class="screenshot" />
-
-                <p>We do have the following platforms in the pipeline:</p>
+                <p>Other platforms to be supported at a later stage may include:</p>
 
                 <ul>
                     <li>Bluesky</li>
-                    <li>LinkedIn</li>
                     <li>Facebook</li>
                     <li>Amazon</li>
                 </ul>
 
-                <p>We are open to suggestions and encourage community feedback to provide additional support (or remove) platforms.</p>
+                <p>We actively welcome community suggestions to expand or refine platform support.</p>
+
+                <h2 id="search-bar">Search Bar</h2>
+                <p>Users landing on the application can type into the search bar, and any relevant results from supported URLs with an existing Rate Card will be displayed.</p>
+
+                <img src="img/search.png" alt="Search bar with results" class="screenshot"  width="463" height="232" >
 
                 <h2 id="create-rating-card">Creating a Rating Card</h2>
-                <p>Users looking to Rate a URL that does not yet exist can simply link an URL and click on Create New Market:</p>
+                <p>If a URL has not yet been created, users can simply paste it and click <b>Create New Rating Card</b>:</p>
 
-                <img src="/api/placeholder/700/220" alt="Creating a new rating card" class="screenshot" />
+                <img src="img/create.png" alt="Creating a new rating card" class="screenshot"  width="463" height="149" >
 
-                <p>Next, simply by Up or Down Rating the URL, the market will be created once the transaction is processed:</p>
+                <p>Once created, users can rate it with a 👍 or 👎. Ratings are recorded onchain once the transaction is confirmed.</p>
 
-                <img src="/api/placeholder/700/350" alt="Rating a new URL" class="screenshot" />
-
-                <p>Last, the Rating Card will be displayed within the NEWLY ADDED Section (and other sections if it qualifies to do so):</p>
-
-                <img src="/api/placeholder/700/120" alt="Newly added rating card" class="screenshot" />
+                <p>The Rating Card will then appear in the NEWLY ADDED section, and possibly other boards depending on its activity.</p>
 
                 <h2 id="submit-rating">Submitting a Rating</h2>
-                <h3>2-clicks process</h3>
-                <p>By clicking in any of the cards Thumbs Up or Down buttons, a pop-up will come up with a pre-filled 1000 Ratings. Users can change the Ratings amount and by clicking on the Submit button the transaction will be prompted in the user wallet for confirmation.</p>
+                <p>Ratings are submitted via a simple two-click process:</p>
 
-                <img src="/api/placeholder/700/400" alt="Rating submission process" class="screenshot" />
+                <ol>
+                    <li>Click Thumbs Up or Thumbs Down on any card.</li>
+                    <li>A pre-filled amount of 1,000 ratings will appear (modifiable by the user). Clicking Submit prompts a wallet confirmation.</li>
+                </ol>
 
-                <p>Updated Ratings for the URL will be updated accordingly upon transaction confirmation.</p>
+                <img src="img/card.png" alt="Rating submission process" class="screenshot" width="562" height="396" >
+
+                <p>The rating is finalized on-chain once the transaction is confirmed.</p>
 
                 <h2 id="rating-boards">Rating Boards</h2>
-                <p>When you land on Immutable Ratings, you will be presented with 4 Rating Boards:</p>
+                <p>Immutable Ratings presents four primary boards:</p>
 
                 <ul>
-                    <li><strong>Trending:</strong> Displays Trending URLs rated over the last 7 days calculated by a formula that takes into account recent activity and engagement.</li>
-                    <li><strong>Highest Rated:</strong> Displays the Highest Overall URLs rated (difference between Total Thumbs Up and Thumbs Down), sorted in descending order.</li>
-                    <li><strong>Lowest Rated:</strong> Displays the Lowest Overall URLs rated (difference between Total Thumbs Down and Thumbs Up), sorted in descending order.</li>
-                    <li><strong>Newly Added:</strong> Displays rate cards newly created, sorted by the Newest.</li>
+                    <li><strong>Trending:</strong> URLs rated most actively over the past 7 days</li>
+                    <li><strong>Highest Rated:</strong> URLs with the highest net Thumbs Up</li>
+                    <li><strong>Lowest Rated:</strong> URLs with the highest net Thumbs Down</li>
+                    <li><strong>Newly Added:</strong> Recently created rating cards</li>
                 </ul>
 
                 <h1 id="resources">Resources</h1>
                 <h2 id="smart-contracts">Smart Contracts</h2>
-                <p>The smart contract documentation will be added here soon.</p>
-
-                <h2 id="faq">FAQ</h2>
-                <p>Frequently asked questions will be added here soon.</p>
+                <p>Smart contract documentation will be added soon.</p>
             </div>
         </main>
     </div>
