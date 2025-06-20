@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immutable Ratings Documentation</title>
+    <style>
+
+/*
+        :root {
+            --primary-color: #6366f1;
+            --sidebar-width: 280px;
+            --header-height: 60px;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --sidebar-background: #f8fafc;
+            --hover-color: #eff6ff;
+            --active-color: #dbeafe;
+        }
+*/
+
+        :root {
+        --primary-color: #1a56db; /* Dark blue instead of purple */
+        --sidebar-width: 280px;
+        --header-height: 60px;
+        --text-color: #1e293b;
+        --border-color: #e2e8f0;
+        --sidebar-background: #f8fafc;
+        --hover-color: #e6f0ff; /* Lighter blue hover state */
+        --active-color: #c7d9f9; /* Medium blue active state */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            height: var(--header-height);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            margin-right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            margin-top: var(--header-height);
+            flex: 1;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-background);
+            border-right: 1px solid var(--border-color);
+            height: calc(100vh - var(--header-height));
+            position: fixed;
+            overflow-y: auto;
+            padding: 20px 0;
+            top: var(--header-height);
+        }
+
+        .sidebar nav {
+            padding: 0 15px;
+        }
+
+        .nav-section {
+            margin-bottom: 20px;
+        }
+
+        .nav-section h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 8px;
+            padding: 0 10px;
+        }
+
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-item a {
+            display: block;
+            padding: 8px 10px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            font-size: 0.95rem;
+        }
+
+        .nav-item a:hover {
+            background: var(--hover-color);
+        }
+
+        .nav-item a.active {
+            background: var(--active-color);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Content styles */
+        .content {
+            margin-left: var(--sidebar-width);
+            padding: 30px 40px;
+            flex: 1;
+            max-width: 100%;
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        h1[id], h2[id], h3[id] {
+            scroll-margin-top: 70px; 
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--sidebar-background);
+            font-weight: 500;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 99;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 20px;
+                width: 100%;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 98;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+
+            .logo-image {
+               height: 46px; /* Match your logo's exact dimensions */
+                width: 46px;
+                object-fit: contain; /* Ensures the logo fits properly within its container */
+            }
+            .logo-link {
+               display: flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+                color: var(--primary-color);
+            }
+
+            .logo-link:hover {
+                 text-decoration: none;
+                color: var(--primary-color);
+            }
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0f3b94; /* Darker blue on hover */
+}
+
+a:active {
+    color: #0a2c70; /* Even darker when clicked */
+}
+
+/* Make external links visually distinct */
+a[href^="http"]:not([href*="ratings.wtf"]):after {
+    content: " ↗";
+    font-size: 0.8em;
+    vertical-align: super;
+}
+
+        
+    </style>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+<div class="logo">
+    <a href="#" class="logo-link">
+        <img src="img/logo.png" alt="Immutable Ratings Logo" class="logo-image">
+    </a>&nbsp;&nbsp;
+        <span>Immutable Ratings Docs</span>
+   
+</div>    </header>
+
+    <div class="container">
+        <div class="overlay" id="overlay"></div>
+        <aside class="sidebar" id="sidebar">
+            <nav>
+                <div class="nav-section">
+                    <h3>Introduction</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#about" class="active">About</a></li>
+                        <li class="nav-item"><a href="#why-immutable-ratings">Why Immutable Ratings</a></li>
+                        <li class="nav-item"><a href="#vision">Vision</a></li>
+                        <li class="nav-item"><a href="#value-proposition">Value Proposition</a></li>
+                        <li class="nav-item"><a href="#target-audience">Target Audience</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>How It Works</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#url-hashing">URL Hashing</a></li>
+                        <li class="nav-item"><a href="#rating-tokens">Rating Tokens</a></li>
+                        <li class="nav-item"><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>Universal Mapping Protocol</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#ump-overview">UMP Overview</a></li>
+                        <li class="nav-item"><a href="#ump-benefits">Benefits for Builders</a></li>
+                        <li class="nav-item"><a href="#ump-public-good">Open Source Public Good</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>User Guide</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#supported-platforms">Supported Platforms</a></li>
+                        <li class="nav-item"><a href="#search-bar">Search Bar</a></li>
+                        <li class="nav-item"><a href="#create-rating-card">Creating a Rating Card</a></li>
+                        <li class="nav-item"><a href="#submit-rating">Submitting a Rating</a></li>
+                        <li class="nav-item"><a href="#rating-boards">Rating Boards</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li class="nav-item"><a href="#smart-contracts">Smart Contracts</a></li>
+                        <li class="nav-item"><a href="#audit">Audit</a></li>
+                      <!--  <li class="nav-item"><a href="#changelog">Changelog</a></li>  -->
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div class="content-container">
+                <h1 id="introduction">Introduction</h1>
+                <h2 id="about">About</h2>
+                <p><b>Immutable Ratings</b> is a blockchain-based platform engineered to anchor public sentiment to the web in a way that's permanent, decentralized, and transparent.</p>
+                <p> Unlike traditional feedback systems that are vulnerable to deletion, moderation, or platform bias, <b>Immutable Ratings</b> enables users to leave lasting opinions tied directly to any supported URL. Whether it's a social profile, a post, a public figure, or a brand presence online, the rating becomes an indelible mark recorded onchain.</p>
+                <p>Through the use of ERC20 tokens assigned to unownable wallets derived from each URL, we introduce a social graph that cannot be altered or erased.</p>
+
+                <h2 id="why-immutable-ratings">Why Immutable Ratings</h2>
+                <p><b>Immutable Ratings</b> was born out of a desire to bring permanence, transparency, and decentralization to how public sentiment is recorded online.</p>
+
+                <p>In a digital landscape dominated by ephemeral likes, biased moderation, and centralized control, we see the opportunity to redefine how opinions are expressed and preserved. By tying sentiment directly to URLs via irreversible blockchain transactions, <b>Immutable Ratings</b> introduces a novel paradigm: one where sentiment is built on an immutable ledger rather than fleeting algorithms.</p>
+
+                <p>This approach ensures that every Rating — whether a 👍 or 👎 — is a lasting, uneditable signal of public opinion, immune to censorship or manipulation. And it's not just a rating system; it's a new layer of trust on the internet.</p>
+
+                <h2 id="vision">Vision</h2>
+                <p>To establish <b>Immutable Ratings</b> as the universal protocol for expressing public sentiment on the internet. We aim to integrate decentralized Thumbs Up/Down buttons across all web platforms, making it as effortless to leave a permanent opinion as clicking a Facebook "Like."</p>
+
+                <h2 id="value-proposition">Value Proposition</h2>
+                <ul>
+                    <li><strong>Immutable Ratings:</strong> Once a rating is given, it cannot be altered or removed, creating a permanent, verifiable record of public sentiment.</li>
+                    <li><strong>Transparent & Decentralized:</strong> Anyone can verify the sentiment attached to a URL, and no centralized authority can censor or manipulate the results.</li>
+                </ul>
+
+                <h2 id="target-audience">Target Audience</h2>
+                <p>Our primary users are Web3 communities, decentralized thinkers, and individuals seeking trustless, permanent tools for expressing and analysing sentiment online.</p>
+
+                <h1 id="how-it-works">How It Works</h1>
+                <h2 id="url-hashing">URL Hashing</h2>
+                <p>Every URL eligible for rating is processed through a keccak-256 hash combined with our personal seed. This produces an Ethereum (EVM) wallet address, effectively binding the URL to a unique onchain identity.</p>
+
+                <p class="center"><strong>URL ≡ EVM Wallet</strong></p>
+
+                <p>Since the resulting wallet has no private key, it cannot be owned. <b>Any tokens sent to it are irrecoverable but permanently trackable</b>. This ensures the sentiment is immutable and free from ownership or interference.</p>
+
+                <h2 id="rating-tokens">Rating Tokens</h2>
+                <p>When a user submits a rating, ERC20 tokens are minted directly to the URL-wallet:</p>
+
+                <ul>
+                    <li>👍 Thumbs Up tokens, represented by $TUP and</li>
+                    <li>👎 Thumbs Down tokens, represented by $TDN</li>
+                </ul>
+
+                <p>These tokens remain in the URL-wallet indefinitely, determining its <b>Immutable Rating</b>.</p>
+
+                <h2 id="pricing">Pricing</h2>
+                <p>Submitting ratings incurs an Immutable Rating (IR) fee, which serves two purposes:</p>
+
+                <ul>
+                    <li><strong>Preventing Spam:</strong> Without the IR fee, malicious actors (aka bots) could flood the system with ratings for minimal gas costs.</li>
+                    <li><strong>Sustaining the Platform:</strong> As a self-bootstrapped initiative, we use IR fees to cover development, third-party services, and marketing efforts.</li>
+                </ul>
+
+                <h3>Pricing Model</h3>
+                <p>Immutable Ratings uses a fixed USDC-based pricing model with automatic token swapping for user convenience:</p>
+                
+                <ul>
+                    <li><strong>Minimum purchase:</strong> 1 IR (Immutable Rating)</li>
+                    <li><strong>Fixed rate:</strong> 1,000 IR = 0.10 USDC</li>
+                    <li><strong>Individual rating cost:</strong> 0.0001 USDC per IR</li>
+                </ul>
+
+                <h3>Supported Payment Tokens</h3>
+                <p>Users can pay with various tokens that are automatically swapped to cover the IR fee:</p>
+
+                <ul>
+                    <li><strong>Arbitrum One:</strong> ETH, ARB, USDC</li>
+                    <li><strong>Base:</strong> ETH, USDC, USDT, TOSHI, MIGGLES</li>
+                </ul>
+
+                <p>The system automatically handles token conversion, so users can pay with their preferred token while the platform maintains consistent USDC-based pricing.</p>
+
+                <h1 id="universal-mapping-protocol">Universal Mapping Protocol</h1>
+                <h2 id="ump-overview">UMP Overview</h2>
+                <p><b>Immutable Ratings</b> now leverages the <strong>Universal Mapping Protocol (UMP)</strong>, a revolutionary smart contract system that creates a standardized method for mapping URLs to EVM wallet addresses.</p>
+                
+                <p>UMP serves as the foundational infrastructure that powers Immutable Ratings' URL-to-wallet mapping functionality, but its potential extends far beyond our platform. By establishing a universal standard for URL mapping, UMP creates new possibilities for decentralized applications across the web.</p>
+
+                <h2 id="ump-benefits">Benefits for Builders</h2>
+                <p>The Universal Mapping Protocol offers developers and builders a powerful foundation for creating innovative applications:</p>
+
+                <ul>
+                    <li><strong>Consistent Mapping:</strong> Every URL maps to the same EVM address across all applications using UMP, creating interoperability between different services</li>
+                    <li><strong>Zero Setup Costs:</strong> Builders can immediately start building on top of existing URL mappings without any initial investment</li>
+                    <li><strong>Composable Infrastructure:</strong> Applications can build upon each other's work, creating compound value and network effects</li>
+                    <li><strong>Decentralized Reputation:</strong> Enables portable reputation systems that work across platforms and services</li>
+                    <li><strong>Cross-Platform Analytics:</strong> Developers can analyze sentiment, engagement, and metrics across the entire web</li>
+                </ul>
+
+                <h2 id="ump-public-good">Open Source Public Good</h2>
+                <p>UMP is designed as a <strong>free, open-source public good</strong> that benefits the entire blockchain ecosystem:</p>
+
+                <ul>
+                    <li><strong>Completely Free:</strong> No fees, no tokens, no gatekeeping - UMP is free for all builders and users</li>
+                    <li><strong>Open Source:</strong> Full transparency with publicly available code that anyone can audit, contribute to, or fork</li>
+                    <li><strong>Permissionless:</strong> Anyone can build applications using UMP without requiring approval or registration</li>
+                    <li><strong>Community Governed:</strong> Development roadmap guided by community needs and builder feedback</li>
+                    <li><strong>Public Infrastructure:</strong> Like roads or the internet, UMP serves as foundational infrastructure for the decentralized web</li>
+                </ul>
+
+                <p>By providing UMP as a public good, we're fostering an ecosystem where innovation can flourish without barriers, enabling developers worldwide to create applications that were previously impossible or prohibitively expensive to build.</p>
+
+                <h1 id="User Guide">User Guide</h1>
+                <h2 id="supported-platforms">Supported Platforms</h2>
+                <p>To ensure quality and relevance, initial support is limited to the following platforms:</p>
+
+                <ul>
+                    <li>X (formerly Twitter)</li>
+                    <li>Farcaster</li>
+                    <li>Wikipedia</li>
+                </ul>
+
+                <p>Users can filter ratings by platform using the icons above the TRENDING section.</p>
+
+                <p>Other platforms to be supported at a later stage may include:</p>
+
+                <ul>
+                    <li>LinkedIn</li>
+                    <li>Bluesky</li>
+                    <li>Facebook</li>
+                    <li>Amazon</li>
+                </ul>
+
+                <p>We actively welcome community suggestions to expand or refine platform support.</p>
+
+                <h2 id="search-bar">Search Bar</h2>
+                <p>Users landing on the application can type into the search bar, and any relevant results from supported URLs with an existing Rate Card will be displayed.</p>
+
+                <img src="img/search.png" alt="Search bar with results" class="screenshot"  width="463" height="232" >
+                <h2 id="create-rating-card">Creating a Rating Card</h2>
+                <p>If a URL has not yet been created, users can simply paste it and click <b>Create New Rating Card</b>:</p>
+
+                <img src="img/create.png" alt="Creating a new rating card" class="screenshot"  width="463" height="148" >
+
+                <p>Once created, users can rate it with a 👍 or 👎. Ratings are recorded onchain once the transaction is confirmed.</p>
+
+                <p>The Rating Card will then appear in the NEWLY ADDED section, and possibly other boards depending on its activity.</p>
+
+                <h2 id="submit-rating">Submitting a Rating</h2>
+                <p>Ratings are submitted via a simple two-click process:</p>
+
+                <ol>
+                    <li>Click Thumbs Up or Thumbs Down on any card.</li>
+                    <li>Choose the amount of ratings to submit (minimum 1 IR). The system will automatically handle payment using your preferred supported token. Clicking Submit prompts a wallet confirmation.</li>
+                </ol>
+
+                <img src="img/card.png" alt="Rating submission process" class="screenshot" width="522" height="392" >
+
+                <p>The rating is finalized onchain once the transaction is confirmed.</p>
+
+                <h2 id="rating-boards">Rating Boards</h2>
+                <p>Immutable Ratings presents four primary boards:</p>
+
+                <ul>
+                    <li><strong>Trending:</strong> URLs rated most actively over the past 7 days</li>
+                    <li><strong>Highest Rated:</strong> URLs with the highest net Thumbs Up</li>
+                    <li><strong>Lowest Rated:</strong> URLs with the highest net Thumbs Down</li>
+                    <li><strong>Newly Added:</strong> Recently created rating cards</li>
+                </ul>
+
+                <h1 id="resources">Resources</h1>
+                <h2 id="smart-contracts">Smart Contracts</h2>
+                
+                <h3>Base Network</h3>
+                <p><strong>Universal Mapping Protocol</strong> Smart Contract on Base<br> <a href="https://basescan.org/address/0x1efcEe5cFD141a9fdfc5fC71488Db5dBa13cf150#code" target="_blank">00x1efcEe5cFD141a9fdfc5fC71488Db5dBa13cf150</a></p>
+                <p><strong>Immutable Ratings</strong> Smart Contract on Base<br> <a href="https://basescan.org/address/0x5C978243782dFeE11a502c38ECA3729ec1263214#code" target="_blank">0x5C978243782dFeE11a502c38ECA3729ec1263214</a></p>
+                <p><strong>Thumbs UP $TUP</strong> ERC20 Smart Contract on Base<br> <a href="https://basescan.org/address/0xE6D3d08a6519F1346344bba0F25A6fE7aB50F06C#code" target="_blank">0xE6D3d08a6519F1346344bba0F25A6fE7aB50F06C</a></p>
+                <p><strong>Thumbs DOWN $TDN</strong> ERC20 Smart Contract on Base<br> <a href="https://basescan.org/address/0x4461a66a7b5ecdbbe0bbbf09b41816f94c4834b2#code" target="_blank">0x4461a66A7B5eCdBBE0bbBf09b41816f94c4834b2</a></p>
+                
+                <h3>Arbitrum One Network</h3>
+                <p><strong>Universal Mapping Protocol</strong> Smart Contract on Arbitrum<br> <a href="https://arbiscan.io/address/0x1efcEe5cFD141a9fdfc5fC71488Db5dBa13cf150#code" target="_blank">0x1efcEe5cFD141a9fdfc5fC71488Db5dBa13cf150</a></p>
+                <p><strong>Immutable Ratings</strong> Smart Contract on Arbitrum<br> <a href="https://arbiscan.io/address/0xdF6f22C8092Accc6d68f655E366dFaDAbdCCd0A7#code" target="_blank">0xdF6f22C8092Accc6d68f655E366dFaDAbdCCd0A7</a></p>
+                <p><strong>Thumbs UP $TUP</strong> ERC20 Smart Contract on Arbitrum<br> <a href="https://arbiscan.io/address/0xE6D3d08a6519F1346344bba0F25A6fE7aB50F06C#code" target="_blank">0xE6D3d08a6519F1346344bba0F25A6fE7aB50F06C</a></p>
+                <p><strong>Thumbs DOWN $TDN</strong> ERC20 Smart Contract on Arbitrum<br> <a href="https://arbiscan.io/address/0x4461a66a7b5ecdbbe0bbbf09b41816f94c4834b2#code" target="_blank">0x4461a66A7B5eCdBBE0bbBf09b41816f94c4834b2</a></p>
+                <h2 id="audit">Audit</h2>
+                <p>The smart contracts have been successfully audited by <a href="https://hashlock.com/?utm_source=immutableratings" target="_blank">#Hashlock</a><br>
+                    The report can be viewed <a href="https://hashlock.com/audits/immutable-ratings/?utm_source=immutableratings" target="_blank">here</a></p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mobile menu toggle functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+        
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Navigation active state
+        const navLinks = document.querySelectorAll('.nav-item a');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // On mobile, close the sidebar after clicking a link
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Highlight active section on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('h1[id], h2[id]');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            if (currentSection) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
